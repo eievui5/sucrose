@@ -7,7 +7,7 @@ repository = "https://github.com/eievui5/sucrose"
 description = "Rust crate for embedding static data from files at build time."
 license = "MIT"
 
-tags = [
+keywords = [
 	"encoding",
 	"macro",
 	"no_std",
