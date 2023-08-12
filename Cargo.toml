@@ -1,12 +1,16 @@
 [package]
 name = "sucrose"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
+
+respository = "https://github.com/eievui5/sucrose"
+description = "Rust crate for embedding static data from files at build time."
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-sucrose-macros = { version = "0.1.0", workspace = true }
+sucrose-macros = { version = "1.0.0", workspace = true }
 proc-macro2 = "1.0.66"
 quote = "1.0.31"
 thiserror = "1.0.44"
@@ -22,5 +26,5 @@ members = [
 resolver = "2"
 
 [workspace.dependencies]
-sucrose = { version = "0.1.0", path = "." }
-sucrose-macros = { version = "0.1.0", path = "sucrose-macros/" }
+sucrose = { version = "1.0.0", path = "." }
+sucrose-macros = { version = "1.0.0", path = "sucrose-macros/" }

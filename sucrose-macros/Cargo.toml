@@ -1,7 +1,11 @@
 [package]
 name = "sucrose-macros"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
+
+respository = "https://github.com/eievui5/sucrose"
+description = "Procedural macros for sucrose."
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
