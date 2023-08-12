@@ -32,14 +32,14 @@ macro_rules! nonzero_static {
     ($type:ident $(,)?) => {
         impl ToStatic for $type {
             fn static_type() -> TokenStream {
-                quote!($type)
+                quote!(::core::num::$type)
             }
             fn static_value(&self) -> TokenStream {
                 let value = self.get();
                 // This value is generated using a NonZero type.
                 // Under no circumstance will it be 0.
                 // using the unsafe method is necessary because Option::unwrap is not const
-                quote!(unsafe { $type::new_unchecked(#value) })
+                quote!(unsafe { ::core::num::$type::new_unchecked(#value) })
             }
         }
     };
