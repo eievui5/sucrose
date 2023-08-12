@@ -1,0 +1,7 @@
+name = "Cat"
+
+[[inventory]]
+identifier = "APPLE"
+
+[[inventory]]
+identifier = "APPLE"

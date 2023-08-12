@@ -1,0 +1,10 @@
+name = "Dog"
+
+[[inventory]]
+identifier = "APPLE"
+
+[[inventory]]
+identifier = "PEAR"
+
+[[inventory]]
+identifier = "APPLE"
