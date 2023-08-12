@@ -3,7 +3,7 @@ name = "sucrose"
 version = "1.0.0"
 edition = "2021"
 
-respository = "https://github.com/eievui5/sucrose"
+repository = "https://github.com/eievui5/sucrose"
 description = "Rust crate for embedding static data from files at build time."
 license = "MIT"
 

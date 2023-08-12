@@ -3,7 +3,7 @@ name = "sucrose-macros"
 version = "1.0.0"
 edition = "2021"
 
-respository = "https://github.com/eievui5/sucrose"
+repository = "https://github.com/eievui5/sucrose"
 description = "Procedural macros for sucrose."
 license = "MIT"
 
