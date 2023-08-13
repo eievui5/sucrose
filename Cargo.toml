@@ -25,7 +25,7 @@ categories = [
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-sucrose-macros = { version = "1.0.0", workspace = true }
+sucrose-macros = { workspace = true }
 proc-macro2 = "1.0.66"
 quote = "1.0.31"
 thiserror = "1.0.44"

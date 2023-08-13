@@ -1,5 +1,3 @@
-#![feature(path_file_prefix)]
-
 pub use proc_macro2;
 pub use quote::quote;
 pub use sucrose_macros::Resource;
@@ -35,6 +33,7 @@ pub fn convert_dir<T: Resource + for<'de> serde::Deserialize<'de>>(
     parse: impl Fn(&str) -> Option<T>,
 ) -> std::io::Result<()> {
     use convert_case::{Case, Casing};
+    use std::io;
 
     for entry in std::fs::read_dir(path)? {
         let entry = entry?;
@@ -45,17 +44,39 @@ pub fn convert_dir<T: Resource + for<'de> serde::Deserialize<'de>>(
             };
 
             if let Some(resource) = parse(&text) {
-                let name = path
-                    .file_prefix()
-                    .unwrap()
-                    .to_string_lossy()
+                let name = path.to_string_lossy().to_string();
+                // Grab only the file after all slashes and before any dots.
+                let name = name
+                    .rsplit_once('/')
+                    .map_or(name.as_str(), |n| n.1)
+                    .split_once('.')
+                    .map_or(name.as_str(), |n| n.0)
                     .to_case(Case::UpperSnake);
+
+                // Validate the remaining characters to make sure they're valid as Rust identifiers.
+                for (i, c) in name.chars().enumerate() {
+                    // This is overly strict; improvements are welcome.
+                    if !(c == '_'
+                        || if i == 0 {
+                            c.is_alphabetic()
+                        } else {
+                            c.is_alphanumeric()
+                        })
+                    {
+                        Err(io::Error::new(
+                            io::ErrorKind::InvalidInput,
+                            "Non-identifier character in file name",
+                        ))?;
+                    }
+                }
+
                 let ty = T::static_type().to_string();
                 let value = &resource.static_value().to_string();
                 write!(
                     o,
                     "#[allow(non_upper_case_globals, dead_code)] pub const {name}: {ty} = {value};",
                 )?;
+                println!("cargo:rerun-if-changed={}", path.display());
             }
         }
     }
