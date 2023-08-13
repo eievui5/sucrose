@@ -13,6 +13,10 @@ For example, this structure:
 struct Character {
 	name: String
 }
+
+Character {
+	name: String::from("Hello, world!"),
+};
 ```
 ...would be translated into this:
 
@@ -20,29 +24,15 @@ struct Character {
 struct Character {
 	name: &'static str
 }
-```
 
-Furthermore, dynamic instances can be converted to their static counterparts as well.
-This:
-
-```rust
-# struct Character { name: String };
-Character {
-	name: String::from("Hello, world!"),
-}
-# ;
-```
-...becomes this:
-
-```rust
-# struct Character { name: &'static str };
 Character {
 	name: "Hello, world!",
-}
-# ;
+};
 ```
 
-The conversion may look trivial at first, but you can also *nest* resources (types which implement `Resource`), and create conversions for your own types using the `ToStatic` trait.
+The conversion may look trivial at first, but it allows for a lot of flexibilty in how types are represented.
+You can also *nest* resources (types which implement `Resource`),
+and create conversions for your own types using the `ToStatic` trait.
 
 ## ToStatic
 
@@ -56,7 +46,6 @@ The `ToStatic` trait can be used to express that a type may be a member of a res
 An implementation for `i32` may look like this:
 
 ```ignore
-# use sucrose::*;
 impl ToStatic for i32 {
 	fn static_type() -> TokenStream {
 		quote!(i32)
